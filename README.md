@@ -1,6 +1,6 @@
 # 모아 · 작은 시간의 기록
 
-파스텔 네모 달력으로 작업 시간을 모으는 반응형 웹앱이에요. 별도 빌드 없이 Firebase Hosting 또는 GitHub Pages에 배포할 수 있어요.
+파스텔 네모 달력으로 작업 시간을 모으는 반응형 웹앱이에요. 별도 빌드 없이 Firebase Hosting 또는 GitHub Pages에 배포할 수 있어요. 현재 앱: https://moa-time-record.web.app · 비공개 소스: https://github.com/yuriwood50-ai/moa-time-record
 
 ## 먼저 실행해요
 
@@ -10,7 +10,7 @@ Node.js 20 이상에서 이 폴더를 열고 실행해요.
 npm start
 ```
 
-브라우저에서 http://127.0.0.1:4173 을 열어요. HTML 파일을 더블클릭하는 방식은 ES 모듈 때문에 지원하지 않아요. 기본은 체험 모드이며 프로젝트, 기록, 타이머를 해당 브라우저의 localStorage에 저장해요. 체험 기록은 Firebase로 자동 이전하지 않아요. 필요한 기록은 하단의 ‘기록 백업’으로 JSON을 내려받을 수 있어요. 가져오기 기능은 없어요.
+브라우저에서 http://127.0.0.1:4173 을 열어요. HTML 파일을 더블클릭하는 방식은 ES 모듈 때문에 지원하지 않아요. 현재는 moa-time-record Firebase 프로젝트에 연결되어 있어요. firebase-config.js를 null로 바꾸면 체험 모드이며 프로젝트, 기록, 타이머를 해당 브라우저의 localStorage에 저장해요. 체험 기록은 Firebase로 자동 이전하지 않아요. 필요한 기록은 하단의 ‘기록 백업’으로 JSON을 내려받을 수 있어요. 가져오기 기능은 없어요.
 
 ## Firebase 연결
 
@@ -78,7 +78,7 @@ node --check public/app.js
 
 시간 분할, 자정 경계, 작업 횟수, 잘못된 시간 입력, 표시 문자열 처리를 검사하는 6개 테스트를 통과했어요. JavaScript 구문 검사도 통과했어요.
 
-이 제작 환경에서는 로컬 미리보기 소켓 접근이 제한되어 브라우저 렌더링·모바일 화면·클릭 동작 검증을 완료하지 못했어요. 실제 Firebase 자격 설정이 없으므로 Google 로그인, Firestore 규칙 실행, 두 기기 동기화도 실행 검증 전이에요. 실제 배포를 수행하지 않은 배포용 소스예요.
+2026-10-12 Firebase Hosting과 Firestore 규칙 배포를 완료했어요. 규칙 컴파일, 배포된 화면 로딩, Google 로그인 활성화, 호스팅 도메인 허용을 확인했어요. 실제 사용자 로그인 후 기록 저장과 두 기기 동기화는 아직 실행 검증 전이에요.
 
 연결 후 다음 순서로 확인해 주세요.
 
@@ -90,3 +90,4 @@ node --check public/app.js
 6. Firestore Rules Playground 또는 Emulator에서 익명 접근과 다른 UID 접근이 거부되고, 소유자의 올바른 기록만 허용되는지 확인해요. 음수 시간·역전 시간·없는 프로젝트·추가 필드도 거부되어야 해요.
 
 Firebase SDK는 Google CDN의 12.4.0 고정 버전을 불러와요. 글꼴은 Google Fonts를 사용하고 로딩에 실패하면 기본 글꼴로 표시해요.
+
