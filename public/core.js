@@ -1,0 +1,5 @@
+export const dayKey=(date)=>{const d=new Date(date);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;};
+export function validateSession(start,end){if(!Number.isFinite(start)||!Number.isFinite(end)||end<=start)throw Error('종료 시간을 시작 시간보다 늦게 입력해 주세요.');if(end>Date.now()+60000)throw Error('미래의 작업은 기록할 수 없어요.');if(end-start>7*86400000)throw Error('한 기록은 7일 이내로 나누어 주세요.');}
+export function dailyTotals(sessions){const days={};for(const s of sessions){let t=s.start;while(t<s.end){const d=new Date(t),key=dayKey(d);const next=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1).getTime();const end=Math.min(next,s.end);days[key]??={ms:0,count:0};days[key].ms+=end-t;days[key].count++;t=end;}}return days;}
+export function duration(ms){const m=Math.floor(Math.max(0,ms)/60000);return `${Math.floor(m/60)}시간 ${m%60}분`;}
+export const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

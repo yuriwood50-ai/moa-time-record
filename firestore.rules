@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+ match /databases/{database}/documents {
+  function owner(uid) { return request.auth != null && request.auth.uid == uid; }
+  function projectExists(uid,p) { return p is string && exists(/databases/$(database)/documents/users/$(uid)/projects/$(p)); }
+  match /users/{uid}/projects/{id} {
+   allow read: if owner(uid);
+   allow create, update: if owner(uid) && request.resource.data.keys().hasAll(['name','color']) && request.resource.data.keys().hasOnly(['name','color']) && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 60 && request.resource.data.color in ['lavender','peach','mint','blue'];
+  }
+  match /users/{uid}/sessions/{id} {
+   allow read, delete: if owner(uid);
+   allow create: if owner(uid) && request.resource.data.keys().hasAll(['projectId','start','end','note']) && request.resource.data.keys().hasOnly(['projectId','start','end','note']) && projectExists(uid,request.resource.data.projectId) && request.resource.data.start is number && request.resource.data.end is number && request.resource.data.start >= 0 && request.resource.data.end > request.resource.data.start && request.resource.data.end - request.resource.data.start <= 604800000 && request.resource.data.end <= request.time.toMillis() + 60000 && request.resource.data.note is string && request.resource.data.note.size() <= 200;
+  }
+  match /users/{uid}/state/timer {
+   allow read, delete: if owner(uid);
+   allow create: if owner(uid) && request.resource.data.keys().hasAll(['id','projectId','start']) && request.resource.data.keys().hasOnly(['id','projectId','start']) && request.resource.data.id is string && request.resource.data.id.matches('^[a-zA-Z0-9-]{1,80}$') && projectExists(uid,request.resource.data.projectId) && request.resource.data.start is number && request.resource.data.start >= 0 && request.resource.data.start <= request.time.toMillis() + 60000;
+  }
+ }
+}
