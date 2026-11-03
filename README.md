@@ -1,6 +1,6 @@
 # 모아 · 작은 시간의 기록
 
-파스텔 네모 달력으로 작업 시간을 모으는 반응형 웹앱이에요. 별도 빌드 없이 Firebase Hosting 또는 GitHub Pages에 배포할 수 있어요. 현재 앱: https://moa-time-record.web.app · 비공개 소스: https://github.com/yuriwood50-ai/moa-time-record
+파스텔 네모 달력으로 작업 시간을 모으는 반응형 웹앱이에요. 별도 빌드 없이 Firebase Hosting 또는 GitHub Pages에 배포할 수 있어요. 현재 앱: https://moa-time-record.web.app · 소스: https://github.com/yuriwood50-ai/moa-time-record
 
 ## 먼저 실행해요
 
